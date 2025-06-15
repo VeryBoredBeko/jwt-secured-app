@@ -1,0 +1,24 @@
+spring:
+  application:
+    name: security-security
+  datasource:
+    url: jdbc:h2:mem:security-security
+    driverClassName: org.h2.Driver
+    username: root
+    password: root
+  jpa:
+    hibernate:
+      ddl-auto: create-drop
+    show-sql: true
+    properties:
+      hibernate:
+        format_sql: true
+token:
+  signing:
+    key: y84gkNfIt18y+92Ne0T/xH+Cep2uUfsYw7Z1+Dk6HuQ=
+
+logging:
+  level:
+    org:
+      springframework:
+        security: DEBUG
