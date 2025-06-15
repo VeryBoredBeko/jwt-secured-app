@@ -36,7 +36,6 @@ public class JWTAuthenticationFilter extends OncePerRequestFilter {
 
         String path = request.getRequestURI();
 
-        // ❗ Пропускаем публичные пути
         if (path.startsWith("/auth/")) {
             filterChain.doFilter(request, response);
             return;
@@ -51,13 +50,13 @@ public class JWTAuthenticationFilter extends OncePerRequestFilter {
 
         try {
             String jws = authHeader.substring(BEARER_PREFIX.length());
-            String username = jwtService.extractUsername(jws);
+            String username = jwtService.extractUsername(jws, JWTService.TokenType.ACCESS_TOKEN);
 
             if (!username.isEmpty() && SecurityContextHolder.getContext().getAuthentication() == null) {
 
                 UserDetails userDetails = userService.userDetailsService().loadUserByUsername(username);
 
-                if (jwtService.isTokenValid(jws, userDetails)) {
+                if (jwtService.isTokenValid(jws, userDetails, JWTService.TokenType.ACCESS_TOKEN)) {
 
                     SecurityContext context = SecurityContextHolder.createEmptyContext();
                     UsernamePasswordAuthenticationToken authToken =
@@ -70,8 +69,8 @@ public class JWTAuthenticationFilter extends OncePerRequestFilter {
             }
 
             filterChain.doFilter(request, response);
-        }
-        catch (AuthenticationException exception) {
+
+        } catch (AuthenticationException exception) {
             filterChain.doFilter(request, response);
         }
     }

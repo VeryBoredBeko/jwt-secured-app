@@ -15,7 +15,10 @@ spring:
         format_sql: true
 token:
   signing:
-    key: y84gkNfIt18y+92Ne0T/xH+Cep2uUfsYw7Z1+Dk6HuQ=
+    access:
+      key: y84gkNfIt18y+92Ne0T/xH+Cep2uUfsYw7Z1+Dk6HuQ=
+    refresh:
+      key: y84gkNfIt18y+92Ne0T/xH+Cep2uUfsYw7Z1+Dk6HuQ=
 
 logging:
   level:
